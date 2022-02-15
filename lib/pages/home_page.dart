@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:report_generator/pages/create_report_page.dart';
 import 'package:report_generator/shared/widgets/reporte_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,9 +13,12 @@ class HomePage extends StatelessWidget {
         title: const Text('Home'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //   Navigator.pushNamed(context, '/counter');
-        },
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const CreateReportPage(),
+          ),
+        ),
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(itemBuilder: (context, index) {
