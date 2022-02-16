@@ -66,7 +66,7 @@ class _$AppDatabase extends AppDatabase {
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 5,
+      version: 7,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -197,8 +197,9 @@ class _$ReporteDao extends ReporteDao {
   }
 
   @override
-  Future<Reporte?> findReporteByIdStream(int id) async {
-    return _queryAdapter.query('SELECT * FROM Reporte WHERE id = ?1',
+  Stream<List<Reporte>> findAllReporteByFechaDescStream() {
+    return _queryAdapter.queryListStream(
+        'SELECT * FROM Reporte ORDER BY fecha DESC',
         mapper: (Map<String, Object?> row) => Reporte(
             id: row['id'] as int,
             fecha: row['fecha'] as String,
@@ -210,7 +211,78 @@ class _$ReporteDao extends ReporteDao {
             operador: row['operador'] as String,
             horaInicio: row['horaInicio'] as double,
             horaFin: row['horaFin'] as double),
-        arguments: [id]);
+        queryableName: 'Reporte',
+        isView: false);
+  }
+
+  @override
+  Future<List<Reporte>> findAllReporteByFechaDescFuture() async {
+    return _queryAdapter.queryList('SELECT * FROM Reporte ORDER BY fecha DESC',
+        mapper: (Map<String, Object?> row) => Reporte(
+            id: row['id'] as int,
+            fecha: row['fecha'] as String,
+            seleccionado: (row['seleccionado'] as int) != 0,
+            encargado: row['encargado'] as String,
+            descripcion: row['descripcion'] as String,
+            lugar: row['lugar'] as String,
+            maquina: row['maquina'] as String,
+            operador: row['operador'] as String,
+            horaInicio: row['horaInicio'] as double,
+            horaFin: row['horaFin'] as double));
+  }
+
+  @override
+  Stream<List<Reporte>> findAllReporteByFechaAscStream() {
+    return _queryAdapter.queryListStream(
+        'SELECT * FROM Reporte ORDER BY fecha ASC',
+        mapper: (Map<String, Object?> row) => Reporte(
+            id: row['id'] as int,
+            fecha: row['fecha'] as String,
+            seleccionado: (row['seleccionado'] as int) != 0,
+            encargado: row['encargado'] as String,
+            descripcion: row['descripcion'] as String,
+            lugar: row['lugar'] as String,
+            maquina: row['maquina'] as String,
+            operador: row['operador'] as String,
+            horaInicio: row['horaInicio'] as double,
+            horaFin: row['horaFin'] as double),
+        queryableName: 'Reporte',
+        isView: false);
+  }
+
+  @override
+  Future<List<Reporte>> findAllReporteByFechaAscFuture() async {
+    return _queryAdapter.queryList('SELECT * FROM Reporte ORDER BY fecha ASC',
+        mapper: (Map<String, Object?> row) => Reporte(
+            id: row['id'] as int,
+            fecha: row['fecha'] as String,
+            seleccionado: (row['seleccionado'] as int) != 0,
+            encargado: row['encargado'] as String,
+            descripcion: row['descripcion'] as String,
+            lugar: row['lugar'] as String,
+            maquina: row['maquina'] as String,
+            operador: row['operador'] as String,
+            horaInicio: row['horaInicio'] as double,
+            horaFin: row['horaFin'] as double));
+  }
+
+  @override
+  Stream<Reporte?> findReporteByIdStream(int id) {
+    return _queryAdapter.queryStream('SELECT * FROM Reporte WHERE id = ?1',
+        mapper: (Map<String, Object?> row) => Reporte(
+            id: row['id'] as int,
+            fecha: row['fecha'] as String,
+            seleccionado: (row['seleccionado'] as int) != 0,
+            encargado: row['encargado'] as String,
+            descripcion: row['descripcion'] as String,
+            lugar: row['lugar'] as String,
+            maquina: row['maquina'] as String,
+            operador: row['operador'] as String,
+            horaInicio: row['horaInicio'] as double,
+            horaFin: row['horaFin'] as double),
+        arguments: [id],
+        queryableName: 'Reporte',
+        isView: false);
   }
 
   @override
@@ -228,6 +300,44 @@ class _$ReporteDao extends ReporteDao {
             horaInicio: row['horaInicio'] as double,
             horaFin: row['horaFin'] as double),
         arguments: [id]);
+  }
+
+  @override
+  Stream<Reporte?> findReporteByIdAndFechaStream(int id, String fecha) {
+    return _queryAdapter.queryStream(
+        'SELECT * FROM Reporte WHERE id = ?1 AND fecha = ?2',
+        mapper: (Map<String, Object?> row) => Reporte(
+            id: row['id'] as int,
+            fecha: row['fecha'] as String,
+            seleccionado: (row['seleccionado'] as int) != 0,
+            encargado: row['encargado'] as String,
+            descripcion: row['descripcion'] as String,
+            lugar: row['lugar'] as String,
+            maquina: row['maquina'] as String,
+            operador: row['operador'] as String,
+            horaInicio: row['horaInicio'] as double,
+            horaFin: row['horaFin'] as double),
+        arguments: [id, fecha],
+        queryableName: 'Reporte',
+        isView: false);
+  }
+
+  @override
+  Future<Reporte?> findReporteByIdAndFechaFuture(int id, String fecha) async {
+    return _queryAdapter.query(
+        'SELECT * FROM Reporte WHERE id = ?1 AND fecha = ?2',
+        mapper: (Map<String, Object?> row) => Reporte(
+            id: row['id'] as int,
+            fecha: row['fecha'] as String,
+            seleccionado: (row['seleccionado'] as int) != 0,
+            encargado: row['encargado'] as String,
+            descripcion: row['descripcion'] as String,
+            lugar: row['lugar'] as String,
+            maquina: row['maquina'] as String,
+            operador: row['operador'] as String,
+            horaInicio: row['horaInicio'] as double,
+            horaFin: row['horaFin'] as double),
+        arguments: [id, fecha]);
   }
 
   @override
