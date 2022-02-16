@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:report_generator/data/models/reporte.dart';
 import 'package:report_generator/shared/utils/date_manager.dart';
 
 class ReporteCard extends StatelessWidget {
-  const ReporteCard({
-    Key? key,
-  }) : super(key: key);
+  const ReporteCard({Key? key, required this.reporte}) : super(key: key);
+
+  final Reporte reporte;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,15 @@ class ReporteCard extends StatelessWidget {
         height: 300,
         child: Column(
           children: [
-            Text("Fecha ${DateManager.getCurrentDate()}"),
+            Text("Fecha: ${reporte.fecha}"),
+            Text("Descripción: ${reporte.descripcion}"),
+            Text("Encargado: ${reporte.encargado}"),
+            Text("Maquina: ${reporte.maquina}"),
+            Text("Operador: ${reporte.operador}"),
+            Text("Hora: Inicio ${reporte.horaInicio}"),
+            Text("Hora: Fin ${reporte.horaFin}"),
+            Text("Hora: Total ${reporte.horaFin - reporte.horaInicio}"),
+            Text("Lugar: ${reporte.lugar}"),
           ],
         ),
       ),
