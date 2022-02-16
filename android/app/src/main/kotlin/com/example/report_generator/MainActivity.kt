@@ -1,4 +1,4 @@
-package com.example.report_generator
+package com.ramirez.matias.report_generator
 
 import io.flutter.embedding.android.FlutterActivity
 
