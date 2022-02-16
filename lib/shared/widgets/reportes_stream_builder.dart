@@ -53,7 +53,7 @@ class ReportesStreamBuilder extends StatelessWidget {
           );
         }
       },
-      stream: _database.reporteDao.findAllReporteByFechaAscStream(),
+      stream: _database.reporteDao.findAllReportesStream(),
     );
   }
 }

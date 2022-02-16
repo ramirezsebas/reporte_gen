@@ -22,7 +22,7 @@ Future<void> main() async {
   print("La Ubicación de la Base de Datos en el telefono seria: $dbPath");
 
   AppDatabase database =
-      await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+      await $FloorAppDatabase.databaseBuilder(dbPath).build();
 
   setupServiceLocator(database);
 
