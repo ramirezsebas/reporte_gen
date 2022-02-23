@@ -29,7 +29,7 @@ class CreateReportPage extends StatelessWidget {
                             DateTime? date = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
+                              firstDate: DateTime(2022),
                               lastDate: DateTime(2111),
                             );
                             if (date != null) {
