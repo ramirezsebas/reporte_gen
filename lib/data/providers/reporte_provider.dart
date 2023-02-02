@@ -75,14 +75,6 @@ class ReporteProvider with ChangeNotifier {
       throw Exception('La fecha es requerida');
     }
 
-    if (descripcion == null || descripcion!.isEmpty) {
-      throw Exception('La descripción es requerida');
-    }
-
-    if (lugar == null || lugar!.isEmpty) {
-      throw Exception('El lugar es requerido');
-    }
-
     if (maquina == null || maquina!.isEmpty) {
       throw Exception('La máquina es requerida');
     }
@@ -114,6 +106,13 @@ class ReporteProvider with ChangeNotifier {
 
   Future<void> saveReporte(Reporte reporte) async {
     await _database.reporteDao.insertReporte(reporte);
+  }
+
+  Future<void> reset() async {
+    fecha = null;
+    inicio = null;
+    fin = null;
+    notifyListeners();
   }
 
   Future<void> downloadReportes() async {
